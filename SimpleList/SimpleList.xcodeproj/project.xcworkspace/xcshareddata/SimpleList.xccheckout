@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EF6C8C35-6BEB-4D67-B54F-D45B4E5A47AA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SimpleList</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>98E588F18678951792E2255E2C7200DEE91574D5</key>
+		<string>https://github.com/antonydev/SimpleListiOs.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SimpleList/SimpleList.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>98E588F18678951792E2255E2C7200DEE91574D5</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/antonydev/SimpleListiOs.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>98E588F18678951792E2255E2C7200DEE91574D5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>98E588F18678951792E2255E2C7200DEE91574D5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SimpleListiOs</string>
+		</dict>
+	</array>
+</dict>
+</plist>

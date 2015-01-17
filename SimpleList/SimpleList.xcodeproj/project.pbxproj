@@ -19,6 +19,11 @@
 		04279B141A69840F00607BA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04279AFC1A69840F00607BA8 /* UIKit.framework */; };
 		04279B1C1A69840F00607BA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04279B1A1A69840F00607BA8 /* InfoPlist.strings */; };
 		04279B1E1A69840F00607BA8 /* SimpleListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04279B1D1A69840F00607BA8 /* SimpleListTests.m */; };
+		04E7395D1A698E770031E80E /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7395C1A698E770031E80E /* ListTableViewController.m */; };
+		04E739601A698EA60031E80E /* AsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7395F1A698EA60031E80E /* AsyncRequest.m */; };
+		04E739631A698F3D0031E80E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E739621A698F3D0031E80E /* Item.m */; };
+		04E739671A6992810031E80E /* LazyImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E739661A6992810031E80E /* LazyImageLoader.m */; };
+		04E7396A1A6992DF0031E80E /* ListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E739691A6992DF0031E80E /* ListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,17 @@
 		04279B191A69840F00607BA8 /* SimpleListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleListTests-Info.plist"; sourceTree = "<group>"; };
 		04279B1B1A69840F00607BA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04279B1D1A69840F00607BA8 /* SimpleListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleListTests.m; sourceTree = "<group>"; };
+		04E7395B1A698E770031E80E /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
+		04E7395C1A698E770031E80E /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
+		04E7395E1A698EA60031E80E /* AsyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRequest.h; sourceTree = "<group>"; };
+		04E7395F1A698EA60031E80E /* AsyncRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncRequest.m; sourceTree = "<group>"; };
+		04E739611A698F3D0031E80E /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		04E739621A698F3D0031E80E /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		04E739641A6990D00031E80E /* PTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTConstants.h; sourceTree = "<group>"; };
+		04E739651A6992810031E80E /* LazyImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LazyImageLoader.h; sourceTree = "<group>"; };
+		04E739661A6992810031E80E /* LazyImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LazyImageLoader.m; sourceTree = "<group>"; };
+		04E739681A6992DF0031E80E /* ListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCell.h; sourceTree = "<group>"; };
+		04E739691A6992DF0031E80E /* ListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +123,9 @@
 		04279AFE1A69840F00607BA8 /* SimpleList */ = {
 			isa = PBXGroup;
 			children = (
+				04E7395A1A698E330031E80E /* ViewControllers */,
+				04B25CA21A698C9E005C443E /* Images */,
+				04B25CA01A698C5F005C443E /* HelperClasses */,
 				04279B071A69840F00607BA8 /* AppDelegate.h */,
 				04279B081A69840F00607BA8 /* AppDelegate.m */,
 				04279B0A1A69840F00607BA8 /* Images.xcassets */,
@@ -142,6 +161,54 @@
 				04279B1A1A69840F00607BA8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04B25CA01A698C5F005C443E /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				04E739681A6992DF0031E80E /* ListCell.h */,
+				04E739691A6992DF0031E80E /* ListCell.m */,
+				04E739651A6992810031E80E /* LazyImageLoader.h */,
+				04E739661A6992810031E80E /* LazyImageLoader.m */,
+				04E739641A6990D00031E80E /* PTConstants.h */,
+				04E7395E1A698EA60031E80E /* AsyncRequest.h */,
+				04E7395F1A698EA60031E80E /* AsyncRequest.m */,
+				04E739611A698F3D0031E80E /* Item.h */,
+				04E739621A698F3D0031E80E /* Item.m */,
+			);
+			path = HelperClasses;
+			sourceTree = "<group>";
+		};
+		04B25CA21A698C9E005C443E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				04B25CA31A698C9E005C443E /* BGImages */,
+				04B25CA41A698C9E005C443E /* Icons */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		04B25CA31A698C9E005C443E /* BGImages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BGImages;
+			sourceTree = "<group>";
+		};
+		04B25CA41A698C9E005C443E /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		04E7395A1A698E330031E80E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				04E7395B1A698E770031E80E /* ListTableViewController.h */,
+				04E7395C1A698E770031E80E /* ListTableViewController.m */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,8 +309,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E739671A6992810031E80E /* LazyImageLoader.m in Sources */,
+				04E7396A1A6992DF0031E80E /* ListCell.m in Sources */,
+				04E739631A698F3D0031E80E /* Item.m in Sources */,
+				04E739601A698EA60031E80E /* AsyncRequest.m in Sources */,
 				04279B091A69840F00607BA8 /* AppDelegate.m in Sources */,
 				04279B051A69840F00607BA8 /* main.m in Sources */,
+				04E7395D1A698E770031E80E /* ListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +441,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleList/SimpleList-Prefix.pch";
 				INFOPLIST_FILE = "SimpleList/SimpleList-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -385,6 +458,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleList/SimpleList-Prefix.pch";
 				INFOPLIST_FILE = "SimpleList/SimpleList-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -452,6 +526,7 @@
 				04279B231A69840F00607BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04279B241A69840F00607BA8 /* Build configuration list for PBXNativeTarget "SimpleListTests" */ = {
 			isa = XCConfigurationList;
@@ -460,6 +535,7 @@
 				04279B261A69840F00607BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
