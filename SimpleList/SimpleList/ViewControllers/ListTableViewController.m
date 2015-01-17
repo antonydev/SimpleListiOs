@@ -127,22 +127,38 @@
         Item *itemObj = [itemArray objectAtIndex:indexPath.row];
         
         myCellView.titleLabel.text = itemObj.titleString;
-        CGFloat height = [self heightForText:itemObj.titleString withFontSize:17 width:320 ];
-        [myCellView.titleLabel setFrame:CGRectMake(myCellView.titleLabel.frame.origin.x, myCellView.titleLabel.frame.origin.y, myCellView.titleLabel.frame.size.width, height)];
-        
-        [myCellView.thumbImageView setFrame:CGRectMake(200, myCellView.titleLabel.frame.origin.y+height+5, 100, 75)];
+        CGFloat height = [self heightForText:itemObj.titleString withFontSize:kTitleFontSize width:tableView.frame.size.width];
+        [myCellView.titleLabel setFrame:CGRectMake(kCellPaddingLeft, myCellView.titleLabel.frame.origin.y, tableView.frame.size.width, height)];
         
         myCellView.descLabel.text = itemObj.descString;
-        CGFloat descHeight = [self heightForText:itemObj.descString withFontSize:15 width:190];
-        if (descHeight != 0)
+        CGFloat descHeight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width-kCellPaddingRight-kCellImageWidth-kCellPaddingLeft];
+        
+        [myCellView.thumbImageView setFrame:CGRectMake(tableView.frame.size.width - kCellPaddingRight-kCellImageWidth, myCellView.titleLabel.frame.origin.y+height, kCellImageWidth, kCellImageHeight)];
+        if (itemObj.imageURLString == nil)
         {
-            descHeight = descHeight+50;// Correction On height
+            [myCellView.thumbImageView setHidden:YES];
+            descHeight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width-kCellPaddingRight-kCellPaddingLeft];
+            if (descHeight != 0)
+            {
+                descHeight = descHeight+50;// Correction On height
+            }
+            [myCellView.descLabel setFrame: CGRectMake(kCellPaddingLeft, height, tableView.frame.size.width-kCellPaddingRight-kCellPaddingLeft, descHeight)];
+
         }
-        [myCellView.descLabel setFrame: CGRectMake(3.0, height, 190, descHeight)];
-        
+        else
+        {
+            descHeight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width-kCellPaddingRight-kCellPaddingLeft-kCellImageWidth];
+            [myCellView.thumbImageView setHidden:NO];
+            if (descHeight != 0)
+            {
+                descHeight = descHeight+50;// Correction On height
+            }
+            [myCellView.descLabel setFrame: CGRectMake(kCellPaddingLeft, height, tableView.frame.size.width-kCellPaddingRight-kCellImageWidth-kCellPaddingLeft, descHeight)];
+            
+        }
         [myCellView.descLabel sizeToFit];
-        
-        // Only load cached images; defer new downloads until scrolling ends
+
+                // Only load cached images; defer new downloads until scrolling ends
         if (!itemObj.thumbImage)
         {
             if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
@@ -156,14 +172,7 @@
         {
             myCellView.thumbImageView.image = itemObj.thumbImage;
         }
-        if (itemObj.imageURLString == nil)
-        {
-            [myCellView.thumbImageView setHidden:YES];
-        }
-        else
-        {
-            [myCellView.thumbImageView setHidden:NO];
-        }
+
     }
     return myCellView;
 }
@@ -176,13 +185,16 @@
     CGFloat totalHeight = 0.0;;
     NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     Item *itemObj = [itemArray objectAtIndex:indexPath.row];
-    CGFloat titleHeight = [self heightForText:itemObj.titleString withFontSize:17 width:320 ];
-    CGFloat descheight = [self heightForText:itemObj.descString withFontSize:15 width:190];
-    totalHeight = titleHeight+descheight;
+    CGFloat titleHeight = [self heightForText:itemObj.titleString withFontSize:kTitleFontSize width:tableView.frame.size.width-kCellPaddingLeft-kCellPaddingRight];
+    CGFloat descheight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width - kCellPaddingRight-kCellPaddingLeft - kCellImageWidth];
+    
+    totalHeight = totalHeight+titleHeight;
     if (itemObj.imageURLString == nil)
     {
-        return totalHeight + 10;
+        descheight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width - kCellPaddingRight - kCellPaddingLeft];
+        return totalHeight + descheight + 10;
     }
+    totalHeight = titleHeight+descheight;
     
     if (totalHeight< titleHeight+ 75)
     {
@@ -351,6 +363,13 @@
     CGFloat height = labelSize.height + 10;
     return height;
 }
-
+// -------------------------------------------------------------------------------
+//	Capture the rotation and reload the table view
+// -------------------------------------------------------------------------------
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    [self.tableView reloadData];
+}
 
 @end

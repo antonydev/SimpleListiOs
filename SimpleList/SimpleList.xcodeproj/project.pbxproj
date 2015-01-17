@@ -185,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				04B25CA31A698C9E005C443E /* BGImages */,
-				04B25CA41A698C9E005C443E /* Icons */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -196,13 +195,6 @@
 				0484F6111A6A947E009D26DC /* News_Dummy_Image.png */,
 			);
 			path = BGImages;
-			sourceTree = "<group>";
-		};
-		04B25CA41A698C9E005C443E /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Icons;
 			sourceTree = "<group>";
 		};
 		04E7395A1A698E330031E80E /* ViewControllers */ = {

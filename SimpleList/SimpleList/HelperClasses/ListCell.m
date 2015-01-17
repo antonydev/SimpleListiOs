@@ -27,7 +27,7 @@
     {
         self.titleLabel = [[UILabel alloc] init];
         [self.titleLabel setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:.75]];
-        //[titleLabel setBackgroundColor:[UIColor grayColor]];
+        //[self.titleLabel setBackgroundColor:[UIColor grayColor]];
         [self.titleLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:20.0f]];
         [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.titleLabel setFrame:CGRectMake(3.0, 3.0, 320, 0)];
@@ -36,7 +36,7 @@
         
         self.descLabel = [[UILabel alloc] init];
         [self.descLabel setTextColor:[UIColor blackColor]];
-        //[descLabel setBackgroundColor:[UIColor grayColor]];
+        //[self.descLabel setBackgroundColor:[UIColor grayColor]];
         [self.descLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:15.0f]];
         [self.descLabel setFrame:CGRectMake(3.0, 3.0, 0.0, 40)];
         [self.descLabel setNumberOfLines:100];

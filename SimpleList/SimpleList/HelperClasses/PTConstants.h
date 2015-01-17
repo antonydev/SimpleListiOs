@@ -20,5 +20,9 @@
 // static values
 static CGFloat kTitleFontSize = 17.0;
 static CGFloat kDescFontSize = 15.0;
+static CGFloat kCellPaddingRight = 5.0;
+static CGFloat kCellPaddingLeft = 5.0;
+static CGFloat kCellImageWidth = 100.0;
+static CGFloat kCellImageHeight= 75.0;
 
 #endif
