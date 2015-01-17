@@ -30,7 +30,7 @@
         //[titleLabel setBackgroundColor:[UIColor grayColor]];
         [self.titleLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:20.0f]];
         [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.titleLabel setFrame:CGRectMake(3.0, 0.0, 320, 0)];
+        [self.titleLabel setFrame:CGRectMake(3.0, 3.0, 320, 0)];
         [self.titleLabel setNumberOfLines:100];
         [self.contentView addSubview:self.titleLabel];
         
@@ -38,18 +38,14 @@
         [self.descLabel setTextColor:[UIColor blackColor]];
         //[descLabel setBackgroundColor:[UIColor grayColor]];
         [self.descLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:15.0f]];
-        [self.descLabel setFrame:CGRectMake(0.0, 0.0, 0.0, 40)];
+        [self.descLabel setFrame:CGRectMake(3.0, 3.0, 0.0, 40)];
         [self.descLabel setNumberOfLines:100];
         [self.contentView addSubview:self.descLabel];
         
         self.thumbImageView = [[UIImageView alloc] init];
-        [self.thumbImageView setFrame:CGRectMake(0, 0, 220, 0.0)];
+        [self.thumbImageView setFrame:CGRectMake(3, 3, 220, 0.0)];
         [self.thumbImageView setImage:[UIImage imageNamed:@"News_Dummy_Image"]];
         [self.contentView addSubview:self.thumbImageView];
-        
-        
-        
-
     }
     return self;
 }
@@ -65,6 +61,7 @@
 
     // Configure the view for the selected state
 }
+
 - (void) dealloc
 {
     [super dealloc];

@@ -17,5 +17,8 @@
 #define ITEM_DESC @"description"
 #define ITEM_IMAGE_URL @"imageHref"
 
+// static values
+static CGFloat kTitleFontSize = 17.0;
+static CGFloat kDescFontSize = 15.0;
 
 #endif

@@ -45,10 +45,6 @@
     [self.request startRequestWithURL:[NSURL URLWithString:DRBOX_URL]];
     
     [self.tableView setDataSource:self];
-    if ([self.tableView  respondsToSelector:@selector(setSeparatorInset:)])
-    {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
@@ -69,7 +65,7 @@
     // terminate all pending download connections
     [self terminateAllDownloads];
     [_refreshControl release];
-    [_imageDownloadsInProgress release];
+    _imageDownloadsInProgress = nil;
     [_dataDict release];
     _request.delegate=nil;
     [_request release];
@@ -133,7 +129,9 @@
         myCellView.titleLabel.text = itemObj.titleString;
         CGFloat height = [self heightForText:itemObj.titleString withFontSize:17 width:320 ];
         [myCellView.titleLabel setFrame:CGRectMake(myCellView.titleLabel.frame.origin.x, myCellView.titleLabel.frame.origin.y, myCellView.titleLabel.frame.size.width, height)];
+        
         [myCellView.thumbImageView setFrame:CGRectMake(200, myCellView.titleLabel.frame.origin.y+height+5, 100, 75)];
+        
         myCellView.descLabel.text = itemObj.descString;
         CGFloat descHeight = [self heightForText:itemObj.descString withFontSize:15 width:190];
         if (descHeight != 0)
@@ -158,10 +156,21 @@
         {
             myCellView.thumbImageView.image = itemObj.thumbImage;
         }
+        if (itemObj.imageURLString == nil)
+        {
+            [myCellView.thumbImageView setHidden:YES];
+        }
+        else
+        {
+            [myCellView.thumbImageView setHidden:NO];
+        }
     }
     return myCellView;
 }
 
+// -------------------------------------------------------------------------------
+//	Returns the height of the each row
+// -------------------------------------------------------------------------------
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat totalHeight = 0.0;;
@@ -170,11 +179,37 @@
     CGFloat titleHeight = [self heightForText:itemObj.titleString withFontSize:17 width:320 ];
     CGFloat descheight = [self heightForText:itemObj.descString withFontSize:15 width:190];
     totalHeight = titleHeight+descheight;
-    if (totalHeight<50)
+    if (itemObj.imageURLString == nil)
     {
-        totalHeight = 70;
+        return totalHeight + 10;
+    }
+    
+    if (totalHeight< titleHeight+ 75)
+    {
+        return  titleHeight+75+30;
     }
     return totalHeight + 50;
+}
+#pragma mark UITableViewDelegate
+// -------------------------------------------------------------------------------
+//	Extends the margins to both ends
+// -------------------------------------------------------------------------------
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 #pragma mark Assynchronous request delegators
 - (void) didStartURLRequest
@@ -284,6 +319,9 @@
 }
 
 #pragma mark Selectors
+// -------------------------------------------------------------------------------
+//	Send the refresh request
+// -------------------------------------------------------------------------------
 - (void)reloadData:(UIRefreshControl *)refreshControl
 {
     if (!self.request.isDataLoading)
@@ -302,7 +340,9 @@
     
     [self.imageDownloadsInProgress removeAllObjects];
 }
-
+// -------------------------------------------------------------------------------
+//	Find the height of the label
+// -------------------------------------------------------------------------------
 - (CGFloat)heightForText:(NSString *)bodyText withFontSize:(int) fontSize width :(CGFloat) width
 {
     UIFont *cellFont = [UIFont systemFontOfSize:fontSize];
@@ -311,4 +351,6 @@
     CGFloat height = labelSize.height + 10;
     return height;
 }
+
+
 @end
