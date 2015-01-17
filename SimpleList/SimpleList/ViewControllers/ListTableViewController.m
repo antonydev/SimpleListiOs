@@ -15,11 +15,15 @@
 @interface ListTableViewController ()<UIScrollViewDelegate>
 @property (nonatomic, retain) AsyncRequest *request;
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
-@property (nonatomic, strong) NSArray *dataSourceArray;
+@property (nonatomic, strong) NSDictionary *dataDict;
 @property (nonatomic, retain) UIRefreshControl *refreshControl;
 @end
 
 @implementation ListTableViewController
+@synthesize request=_request;
+@synthesize refreshControl=_refreshControl;
+@synthesize imageDownloadsInProgress=_imageDownloadsInProgress;
+@synthesize dataDict=_dataDict;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,20 +37,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.navigationItem setTitle:@"Title"];
 
     self.request = [[AsyncRequest alloc]init];
     [self.request setDelegate:self];
     [self.request startRequestWithURL:[NSURL URLWithString:DRBOX_URL]];
     
     [self.tableView setDataSource:self];
-    [self.tableView setDelegate:self];
+    if ([self.tableView  respondsToSelector:@selector(setSeparatorInset:)])
+    {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor orangeColor];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    [self.refreshControl addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventValueChanged];
+    // Adding refresh controll in the table view controller
+    UIRefreshControl  *locRefreshControl = [[UIRefreshControl alloc] init];
+    locRefreshControl.tintColor = [UIColor blueColor];
+    locRefreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [locRefreshControl addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = locRefreshControl;
     [self.tableView addSubview:self.refreshControl];
 }
 
@@ -57,6 +68,11 @@
 {
     // terminate all pending download connections
     [self terminateAllDownloads];
+    [_refreshControl release];
+    [_imageDownloadsInProgress release];
+    [_dataDict release];
+    _request.delegate=nil;
+    [_request release];
     [super dealloc];
 }
 
@@ -76,21 +92,20 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.dataSourceArray count];
+   // return [self.dataSourceArray count];
+    return 1;
 }
--(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    
     NSString *titleString = nil;
     NSDictionary *dict = [self.dataSourceArray objectAtIndex:section];
     titleString = [dict objectForKey:LIST_TITLE];
     return titleString;
-}
+}*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dict = [self.dataSourceArray objectAtIndex:section];
-    NSArray *itemArray = [dict objectForKey:ITEM_KEY];
+    NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     NSInteger intCount = [itemArray count];
     itemArray=nil;
     return intCount;
@@ -106,8 +121,7 @@
     {
         myCellView = (ListCell *) [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    NSDictionary *dict = [self.dataSourceArray objectAtIndex:indexPath.section];
-    NSArray *itemArray = [dict objectForKey:ITEM_KEY];
+    NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     
     
     // Leave cells empty if there's no data yet
@@ -127,6 +141,8 @@
             descHeight = descHeight+50;// Correction On height
         }
         [myCellView.descLabel setFrame: CGRectMake(3.0, height, 190, descHeight)];
+        
+        [myCellView.descLabel sizeToFit];
         
         // Only load cached images; defer new downloads until scrolling ends
         if (!itemObj.thumbImage)
@@ -148,9 +164,8 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat totalHeight = 0.0;
-    NSDictionary *dict = [self.dataSourceArray objectAtIndex:indexPath.section];
-    NSArray *itemArray = [dict objectForKey:ITEM_KEY];
+    CGFloat totalHeight = 0.0;;
+    NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     Item *itemObj = [itemArray objectAtIndex:indexPath.row];
     CGFloat titleHeight = [self heightForText:itemObj.titleString withFontSize:17 width:320 ];
     CGFloat descheight = [self heightForText:itemObj.descString withFontSize:15 width:190];
@@ -166,16 +181,19 @@
 {
     NSLog(@"Starting the the request");
 }
-- (void) didFinishURLRequestWithDataDict:(NSArray *) dataDict
+- (void) didFinishURLRequestWithDataDict:(NSDictionary *) resultDict
 {
-    NSLog(@"Starting the the request:%lu",(unsigned long)[dataDict count]);
-    if (self.dataSourceArray !=nil)
+    if (self.dataDict !=nil)
     {
-        [self.dataSourceArray release]; self.dataSourceArray = nil;
+        [self.dataDict release]; self.dataDict = nil;
     }
-    self.dataSourceArray = [[NSArray alloc]initWithArray:dataDict];
+    self.dataDict = [[NSDictionary alloc]initWithDictionary:resultDict];
+    NSString *titleString = [self.dataDict objectForKey:LIST_TITLE];
+    if (titleString!=nil)
+    {
+         [self.navigationItem setTitle:titleString];
+    }
     [self.tableView reloadData];
-    
     [self.refreshControl endRefreshing];
 }
 - (void) didFailURLRequestWithErrorMessage:(NSString *) errorMessage
@@ -214,8 +232,7 @@
 // -------------------------------------------------------------------------------
 - (void)loadImagesForOnscreenRowsforIndexPath:(NSIndexPath *) path
 {
-    NSDictionary *dict = [self.dataSourceArray objectAtIndex:path.section];
-    NSArray *itemArray = [dict objectForKey:ITEM_KEY];
+    NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     
     if (itemArray.count > 0)
     {

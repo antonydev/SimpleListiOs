@@ -19,6 +19,7 @@
 		04279B141A69840F00607BA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04279AFC1A69840F00607BA8 /* UIKit.framework */; };
 		04279B1C1A69840F00607BA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04279B1A1A69840F00607BA8 /* InfoPlist.strings */; };
 		04279B1E1A69840F00607BA8 /* SimpleListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04279B1D1A69840F00607BA8 /* SimpleListTests.m */; };
+		0484F6121A6A947E009D26DC /* News_Dummy_Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0484F6111A6A947E009D26DC /* News_Dummy_Image.png */; };
 		04E7395D1A698E770031E80E /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7395C1A698E770031E80E /* ListTableViewController.m */; };
 		04E739601A698EA60031E80E /* AsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7395F1A698EA60031E80E /* AsyncRequest.m */; };
 		04E739631A698F3D0031E80E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E739621A698F3D0031E80E /* Item.m */; };
@@ -53,6 +54,7 @@
 		04279B191A69840F00607BA8 /* SimpleListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleListTests-Info.plist"; sourceTree = "<group>"; };
 		04279B1B1A69840F00607BA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04279B1D1A69840F00607BA8 /* SimpleListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleListTests.m; sourceTree = "<group>"; };
+		0484F6111A6A947E009D26DC /* News_Dummy_Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = News_Dummy_Image.png; sourceTree = "<group>"; };
 		04E7395B1A698E770031E80E /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
 		04E7395C1A698E770031E80E /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
 		04E7395E1A698EA60031E80E /* AsyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRequest.h; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		04B25CA31A698C9E005C443E /* BGImages */ = {
 			isa = PBXGroup;
 			children = (
+				0484F6111A6A947E009D26DC /* News_Dummy_Image.png */,
 			);
 			path = BGImages;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				04279B031A69840F00607BA8 /* InfoPlist.strings in Resources */,
 				04279B0B1A69840F00607BA8 /* Images.xcassets in Resources */,
+				0484F6121A6A947E009D26DC /* News_Dummy_Image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

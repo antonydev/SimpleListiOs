@@ -12,7 +12,7 @@
 @optional
 - (void) didStartURLRequest;
 @required
-- (void) didFinishURLRequestWithDataDict:(NSArray *) itemArray;
+- (void) didFinishURLRequestWithDataDict:(NSDictionary *) itemDict;
 - (void) didFailURLRequestWithErrorMessage:(NSString *) errorMessage;
 @end
 

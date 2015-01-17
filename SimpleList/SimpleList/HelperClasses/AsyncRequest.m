@@ -60,9 +60,6 @@
                                                           options:NSJSONReadingAllowFragments
                                                             error:&error];
     // ----------------------- Creates An Array Of Objects Starts ------------------->
-    NSMutableArray *resultArray = [[NSMutableArray alloc]init];
-    
-    NSMutableDictionary *sectionList = [[NSMutableDictionary alloc]init];
     NSString *title = [json objectForKey:LIST_TITLE];
     NSArray *itemArray = [json objectForKey:ITEM_KEY];
     NSMutableArray *itemMutArray = [[NSMutableArray alloc]init];
@@ -83,7 +80,8 @@
         {
             imageURLString = nil;
         }
-        
+        if (titleString == nil && descString == nil && imageURLString == nil)
+            continue;
         Item   *objItem = [[Item alloc] init];
         [objItem setTitleString:titleString];
         [objItem setDescString:descString];
@@ -95,18 +93,14 @@
         titleString = nil; descString = nil;imageURLString = nil;
     }
     
+    NSMutableDictionary *sectionList = [[[NSMutableDictionary alloc]init]autorelease];
     [sectionList setObject:title forKey:LIST_TITLE];
     [sectionList setObject:itemMutArray forKey:ITEM_KEY];
-    [resultArray addObject:sectionList];
     
-    [sectionList release]; sectionList = nil;
+    json = nil;data = nil; mystring = nil;
     title = nil; itemArray = nil;
     [itemMutArray release]; itemMutArray = nil;
     
-    
-    
-    NSArray *finalArray = [[[NSArray alloc]initWithArray:resultArray copyItems:YES]autorelease];
-    [resultArray release]; resultArray = nil;
     //------------------------ Creates An Array Of Objects Ends <--------------------
     self.dataLoading = NO;
     if (error != nil )
@@ -118,7 +112,7 @@
     }
     else if ([self.delegate respondsToSelector:@selector(didFinishURLRequestWithDataDict:)])
     {
-        [self.delegate didFinishURLRequestWithDataDict:finalArray];
+        [self.delegate didFinishURLRequestWithDataDict:sectionList];
     }
 }
 
@@ -129,7 +123,6 @@
     {
         [self.delegate didFailURLRequestWithErrorMessage:[error description]];
     }
-    
 }
 -(void) dealloc
 {

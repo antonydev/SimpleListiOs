@@ -48,6 +48,8 @@
         [self.contentView addSubview:self.thumbImageView];
         
         
+        
+
     }
     return self;
 }
