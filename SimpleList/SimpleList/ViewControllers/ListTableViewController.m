@@ -230,7 +230,7 @@
 #pragma mark Assynchronous request delegators
 - (void) didStartURLRequest
 {
-    NSLog(@"Starting the the request");
+   // NSLog(@"Starting the the request");
 }
 - (void) didFinishURLRequestWithDataDict:(NSDictionary *) resultDict
 {
