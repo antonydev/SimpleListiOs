@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ListTableViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, retain) ListTableViewController *listView;
 
 @end

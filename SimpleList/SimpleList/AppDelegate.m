@@ -7,21 +7,26 @@
 //
 
 #import "AppDelegate.h"
-#import "ListTableViewController.h"
+
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize listView=_listView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    ListTableViewController *listView = [[[ListTableViewController alloc]init] autorelease];
-    UINavigationController *navigation = [[[UINavigationController alloc]initWithRootViewController:listView]autorelease];
+    _listView = [[ListTableViewController alloc]init];
+    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:self.listView];
+    
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = navigation;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [navigation release];
+    navigation = nil;
     return YES;
 }
 
@@ -50,6 +55,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+-(void) dealloc
+{
+    [_listView release];
+    _listView = nil;
+    [_window release];
+    [super dealloc];
 }
 
 @end

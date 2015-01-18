@@ -25,7 +25,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.titleLabel = [[UILabel alloc] init];
+        _titleLabel = [[UILabel alloc] init];
         [self.titleLabel setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:.75]];
         //[self.titleLabel setBackgroundColor:[UIColor grayColor]];
         [self.titleLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:20.0f]];
@@ -34,7 +34,7 @@
         [self.titleLabel setNumberOfLines:100];
         [self.contentView addSubview:self.titleLabel];
         
-        self.descLabel = [[UILabel alloc] init];
+        _descLabel = [[UILabel alloc] init];
         [self.descLabel setTextColor:[UIColor blackColor]];
         //[self.descLabel setBackgroundColor:[UIColor grayColor]];
         [self.descLabel setFont:[UIFont fontWithName:@"ArialUnicodeMS" size:15.0f]];
@@ -42,7 +42,7 @@
         [self.descLabel setNumberOfLines:100];
         [self.contentView addSubview:self.descLabel];
         
-        self.thumbImageView = [[UIImageView alloc] init];
+        _thumbImageView = [[UIImageView alloc] init];
         [self.thumbImageView setFrame:CGRectMake(3, 3, 220, 0.0)];
         [self.thumbImageView setImage:[UIImage imageNamed:@"News_Dummy_Image"]];
         [self.contentView addSubview:self.thumbImageView];

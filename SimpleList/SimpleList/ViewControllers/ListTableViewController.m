@@ -40,7 +40,7 @@
     
     [self.navigationItem setTitle:@"Title"];
 
-    self.request = [[AsyncRequest alloc]init];
+    _request = [[AsyncRequest alloc]init];
     [self.request setDelegate:self];
     [self.request startRequestWithURL:[NSURL URLWithString:DRBOX_URL]];
     
@@ -53,8 +53,12 @@
     locRefreshControl.tintColor = [UIColor blueColor];
     locRefreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [locRefreshControl addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = locRefreshControl;
+    _refreshControl = locRefreshControl;
     [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl beginRefreshing];
+   // [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
+    [locRefreshControl release];
+    locRefreshControl= nil;
 }
 
 // -------------------------------------------------------------------------------
@@ -115,7 +119,7 @@
     myCellView = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (myCellView == nil)
     {
-        myCellView = (ListCell *) [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        myCellView = [(ListCell *) [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
     }
     NSArray *itemArray = [self.dataDict objectForKey:ITEM_KEY];
     
@@ -131,7 +135,8 @@
         [myCellView.titleLabel setFrame:CGRectMake(kCellPaddingLeft, myCellView.titleLabel.frame.origin.y, tableView.frame.size.width, height)];
         
         myCellView.descLabel.text = itemObj.descString;
-        CGFloat descHeight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width-kCellPaddingRight-kCellImageWidth-kCellPaddingLeft];
+        CGFloat descHeight = 0.0;
+        descHeight = [self heightForText:itemObj.descString withFontSize:kDescFontSize width:tableView.frame.size.width-kCellPaddingRight-kCellImageWidth-kCellPaddingLeft];
         
         [myCellView.thumbImageView setFrame:CGRectMake(tableView.frame.size.width - kCellPaddingRight-kCellImageWidth, myCellView.titleLabel.frame.origin.y+height, kCellImageWidth, kCellImageHeight)];
         if (itemObj.imageURLString == nil)
@@ -158,7 +163,7 @@
         }
         [myCellView.descLabel sizeToFit];
 
-                // Only load cached images; defer new downloads until scrolling ends
+        // Only load cached images; defer new downloads until scrolling ends
         if (!itemObj.thumbImage)
         {
             if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
@@ -172,7 +177,6 @@
         {
             myCellView.thumbImageView.image = itemObj.thumbImage;
         }
-
     }
     return myCellView;
 }
@@ -232,9 +236,9 @@
 {
     if (self.dataDict !=nil)
     {
-        [self.dataDict release]; self.dataDict = nil;
+        [_dataDict release]; _dataDict = nil;
     }
-    self.dataDict = [[NSDictionary alloc]initWithDictionary:resultDict];
+    _dataDict = [[NSDictionary alloc]initWithDictionary:resultDict];
     NSString *titleString = [self.dataDict objectForKey:LIST_TITLE];
     if (titleString!=nil)
     {

@@ -85,7 +85,7 @@
     {
         self.itemObj.thumbImage = image;
     }
-    
+    [image release]; image = nil;
     self.activeDownload = nil;
     
     // Release the connection now that it's finished
